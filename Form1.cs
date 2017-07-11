@@ -1,7 +1,8 @@
 ﻿/// <summary>
-/// Author: Ariful Alam Khan
+/// Author: Muhtasim Billah
 /// WARNING: This software sends messages to rendering engines. You must be careful while running it.
 /// </summary>
+//Note: For this version some changes made here.
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,11 +21,11 @@ namespace ElectionResult
     {
         private string currentFFEngine;//current full frame engine
         private string currentBUGEngine;//current BUG engine
-        private string backScene = "SCENE*ITV_GFX_TEAM/Rudra_project/Election/Comilla/BG";//background scene
+        private string backScene = "SCENE......./Comilla/BG";//background scene
         private string mainTitle = "Election Result";//title to be shown on title bar
         private int currentFFScene = 0;
         private int currentBUGScene = 0;
-        private PWSACTIVEXLib.vizCommunication vc;//class instance for sending message to viz engine
+        private vizCommunication vc;//library used for connection. here removed now
         int t1, t2, t3, t4, t5, t6, n1, n2, p1, p2, p3, p4, p5, p6;
         private string scene1, scene2, scene3, scene4, scene5, scene6, scene7, scene8, scene9, scene10, scene11, scene12, scene13, scene14, scene15, scene16, scene17;
         private Thread executorThread;
@@ -47,27 +48,27 @@ namespace ElectionResult
             this.currentFFEngine = "NONE";
             this.currentBUGEngine = "NONE";
             this.Text = this.mainTitle + " Engine: " + this.currentFFEngine;
-            this.vc = new PWSACTIVEXLib.vizCommunication();
+            this.vc = new vizCommunication();
             vc.hostname = this.currentFFEngine;
 
             /// SCENE NAMES
-            scene1 = "SCENE*ITV_GFX_TEAM/Rudra_project/Election/Comilla/3_Candidate_Percentage";
-            scene2 = "SCENE*ITV_GFX_TEAM/Rudra_project/Election/Comilla/All_Percentage";
-            scene3 = "SCENE*ITV_GFX_TEAM/Rudra_project/Election/Comilla/All_Vote";
-            scene4 = "SCENE*ITV_GFX_TEAM/Rudra_project/Election/Comilla/Single_Afzal";
-            scene5 = "SCENE*ITV_GFX_TEAM/Rudra_project/Election/Comilla/Single_Mithu";
-            scene6 = "SCENE*ITV_GFX_TEAM/Rudra_project/Election/Comilla/Single_Sakku";
-            scene7 = "SCENE*ITV_GFX_TEAM/Rudra_project/Election/Comilla/Single_Selim";
-            scene8 = "SCENE*ITV_GFX_TEAM/Rudra_project/Election/Comilla/Single_Tanim";
-            scene9 = "SCENE*ITV_GFX_TEAM/Rudra_project/Election/Comilla/Pie_all_new";
-            scene10 = "SCENE*ITV_GFX_TEAM/Rudra_project/Election/Comilla/Bug_all";
-            scene11 = "SCENE*ITV_GFX_TEAM/Rudra_project/Election/Election_Final/Election_BUG_Tangail_3";//"SCENE*ITV_GFX_TEAM/Rudra_project/Election/Comilla/Bug_3";
-            scene12 = "SCENE*ITV_GFX_TEAM/Rudra_project/Election/Comilla/3_Candidate";
-            scene13 = "SCENE*ITV_GFX_TEAM/Rudra_project/Election/Comilla/Pie_3";
-            scene14 = "SCENE*ITV_GFX_TEAM/Rudra_project/Election/Comilla/2_Percentage";
-            scene15 = "SCENE*ITV_GFX_TEAM/Rudra_project/Election/Comilla/2_Candidate";
-            scene16 = "SCENE*ITV_GFX_TEAM/Rudra_project/Election/Comilla/Pie_2";
-            scene17 = "SCENE*ITV_GFX_TEAM/Rudra_project/Election/Comilla/Bug_2";
+            scene1 = "SCENE NAME";
+            scene2 = "SCENE Name";
+            scene3 = "SCENE NAme";
+            scene4 = "SCENE Name";
+            scene5 = "SCENE Name";
+            scene6 = "SCENE Name";
+            scene7 = "SCENE Name";
+            scene8 = "SCENE Name";
+            scene9 = "SCENE Name";
+            scene10 = "SCENE Name";
+            scene11 = "SCENE Name";//"";
+            scene12 = "SCENE Name";
+            scene13 = "SCENE Name";
+            scene14 = "SCENE Name";
+            scene15 = "SCENE Name";
+            scene16 = "SCENE Name";
+            scene17 = "SCENE Name";
             ///
 
             this.showText(2);//shows welcome message
@@ -150,15 +151,12 @@ namespace ElectionResult
             {
                 vc.hostname = this.currentBUGEngine;
             }
-            this.sendVizCommand("0 RENDERER*FRONT_LAYER SET_OBJECT");
-            this.sendVizCommand("0 RENDERER*MAIN_LAYER SET_OBJECT");
-            this.sendVizCommand("0 RENDERER*BACK_LAYER SET_OBJECT");
+            this.sendVizCommand("0 RENDERER*LAYER SET_OBJECT");
+            //More Commands
             this.sendVizCommand("0 SCENE CLEANUP");
-            this.sendVizCommand("0 GEOM CLEANUP");
-            this.sendVizCommand("0 IMAGE CLEANUP");
-            this.sendVizCommand("0 FONT CLEANUP");
+            //More Commands
             this.sendVizCommand("0 MATERIAL CLEANUP");
-            this.sendVizCommand("0 MAPS CACHE CLEANUP");
+            this.sendVizCommand("0 MAPS CLEANUP");
             //**uncheck all rad button, disable play button, stop button
                 
             if (isBugEngine)
@@ -420,71 +418,72 @@ namespace ElectionResult
             string command;
             switch(currentFFScene)
             {
+                //Some changes made here for this version.
                 case 0://normal update                
-                    command = "0 RENDERER*FUNCTION*DataPool*Data SET t1=" + this.t1.ToString() + ";t2=" + this.t2.ToString() + ";t3=" + this.t3.ToString() + ";t4=" + this.t4.ToString() + ";t5=" + this.t5.ToString() + ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString() + ";p1=" + this.p1.ToString() + ";p2=" + this.p2.ToString() + ";p3=" + this.p3.ToString() + ";p4=" + this.p4.ToString() + ";p5=" + this.p5.ToString() + ";";
+                    command = "0 RENDERER*FUNCTION*Data SET t1=" + this.t1.ToString() + ";t2=" + this.t2.ToString() + ";t3=" + this.t3.ToString() + ";t4=" + this.t4.ToString() + ";t5=" + this.t5.ToString() + ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString() + ";p1=" + this.p1.ToString() + ";p2=" + this.p2.ToString() + ";p3=" + this.p3.ToString() + ";p4=" + this.p4.ToString() + ";p5=" + this.p5.ToString() + ";";
                     this.sendVizCommand(command);
                     break;
             
                 case 9://give pie values for all
-                    this.sendVizCommand("0 RENDERER*FUNCTION*DataPool*Data SET d1=" + p1.ToString() + "#" + p2.ToString() + "#" + p3.ToString() + "#" + p4.ToString() + "#" + p5.ToString());
-                    command = "0 RENDERER*FUNCTION*DataPool*Data SET t1=" + this.t1.ToString() + ";t2=" + this.t2.ToString() + ";t3=" + this.t3.ToString() + ";t4=" + this.t4.ToString() + ";t5=" + this.t5.ToString() + ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString() + ";p1=" + this.p1.ToString() + ";p2=" + this.p2.ToString() + ";p3=" + this.p3.ToString() + ";p4=" + this.p4.ToString() + ";p5=" + this.p5.ToString() + ";";
+                    this.sendVizCommand("0 RENDERER*FUNCTION*Data SET d1=" + p1.ToString() + "#" + p2.ToString() + "#" + p3.ToString() + "#" + p4.ToString() + "#" + p5.ToString());
+                    command = "0 RENDERER*FUNCTION*Data SET t1=" + this.t1.ToString() + ";t2=" + this.t2.ToString() + ";t3=" + this.t3.ToString() + ";t4=" + this.t4.ToString() + ";t5=" + this.t5.ToString() + ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString() + ";p1=" + this.p1.ToString() + ";p2=" + this.p2.ToString() + ";p3=" + this.p3.ToString() + ";p4=" + this.p4.ToString() + ";p5=" + this.p5.ToString() + ";";
                     this.sendVizCommand(command);
                     break;
                 case 2:
                     break;
                 case 4://afzol single
-                    command = "0 RENDERER*FUNCTION*DataPool*Data SET t1=" + this.t1.ToString() + ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString()+";p1=" + this.p1.ToString() + ";";
+                    command = "0 RENDERER*FUNCTION*Data SET t1=" + this.t1.ToString() + ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString()+";p1=" + this.p1.ToString() + ";";
                     this.sendVizCommand(command);
                     break;
                 case 5://mithu single
-                    command = "0 RENDERER*FUNCTION*DataPool*Data SET t5=" + this.t5.ToString() + ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString()+";p5=" + this.p5.ToString() + ";";
+                    command = "0 RENDERER*FUNCTION*Data SET t5=" + this.t5.ToString() + ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString()+";p5=" + this.p5.ToString() + ";";
                     this.sendVizCommand(command);
                     break;
                 case 6: 
                     //sakku single
-                    command = "0 RENDERER*FUNCTION*DataPool*Data SET t2=" + this.t2.ToString() + ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString()+";p2=" + this.p2.ToString() + ";";
+                    command = "0 RENDERER*FUNCTION*Data SET t2=" + this.t2.ToString() + ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString()+";p2=" + this.p2.ToString() + ";";
                     this.sendVizCommand(command);
                     break;
                 case 7:
                     //Eyar Ahmed Selim Single
-                    command = "0 RENDERER*FUNCTION*DataPool*Data SET t3=" + this.t3.ToString() + ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString()+";p3=" + this.p3.ToString() + ";";
+                    command = "0 RENDERER*FUNCTION*Data SET t3=" + this.t3.ToString() + ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString()+";p3=" + this.p3.ToString() + ";";
                     this.sendVizCommand(command);
                     break;
                 case 8:
                     //Nur ur Rahman Mahmud
-                    command = "0 RENDERER*FUNCTION*DataPool*Data SET t4=" + this.t4.ToString() + ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString()+";p4=" + this.p4.ToString() + ";";
+                    command = "0 RENDERER*FUNCTION*Data SET t4=" + this.t4.ToString() + ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString()+";p4=" + this.p4.ToString() + ";";
                     this.sendVizCommand(command);
                     break;
 
                 case 1://3 candidates%
-                    command = "0 RENDERER*FUNCTION*DataPool*Data SET p1=" + this.p1.ToString() + ";p2=" + this.p2.ToString() + ";p3=" + this.p3.ToString() + ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString() + ";";
+                    command = "0 RENDERER*FUNCTION*Data SET p1=" + this.p1.ToString() + ";p2=" + this.p2.ToString() + ";p3=" + this.p3.ToString() + ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString() + ";";
                     this.sendVizCommand(command);
                     break;
                 case 12:
                     //3 candidate vote
-                    command = "0 RENDERER*FUNCTION*DataPool*Data SET t1=" + this.t1.ToString() + ";t2=" + this.t2.ToString() + ";t3=" + this.t3.ToString() +  ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString() + ";p1=" + this.p1.ToString() + ";p2=" + this.p2.ToString() + ";p3=" + this.p3.ToString() + ";";                   
+                    command = "0 RENDERER*FUNCTION*Data SET t1=" + this.t1.ToString() + ";t2=" + this.t2.ToString() + ";t3=" + this.t3.ToString() +  ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString() + ";p1=" + this.p1.ToString() + ";p2=" + this.p2.ToString() + ";p3=" + this.p3.ToString() + ";";                   
                     this.sendVizCommand(command);
                     break;
                 case 13:
                     //3 candidate pie
-                    this.sendVizCommand("0 RENDERER*FUNCTION*DataPool*Data SET d2=" + p1.ToString() + "#" + p2.ToString() + "#" + p3.ToString() + "#" + (p4+p5).ToString()) ;
+                    this.sendVizCommand("0 RENDERER*FUNCTION*Data SET d2=" + p1.ToString() + "#" + p2.ToString() + "#" + p3.ToString() + "#" + (p4+p5).ToString()) ;
                     command = "0 RENDERER*FUNCTION*DataPool*Data SET n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString()+";";
                     this.sendVizCommand(command);
                     break;
 
                 case 14://2 candidates%
-                    command = "0 RENDERER*FUNCTION*DataPool*Data SET p1=" + this.p1.ToString() + ";p2=" + this.p2.ToString() + ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString() + ";";
+                    command = "0 RENDERER*FUNCTION*Data SET p1=" + this.p1.ToString() + ";p2=" + this.p2.ToString() + ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString() + ";";
                     this.sendVizCommand(command);
                     break;
                 case 15:
                     //2 candidate vote
-                    command = "0 RENDERER*FUNCTION*DataPool*Data SET t1=" + this.t1.ToString() + ";t2=" + this.t2.ToString() +";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString() + ";p1=" + this.p1.ToString() + ";p2=" + this.p2.ToString()  + ";";
+                    command = "0 RENDERER*FUNCTION*Data SET t1=" + this.t1.ToString() + ";t2=" + this.t2.ToString() +";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString() + ";p1=" + this.p1.ToString() + ";p2=" + this.p2.ToString()  + ";";
                     this.sendVizCommand(command);
                     break;
                 case 16:
                     //2 candidate pie
-                    this.sendVizCommand("0 RENDERER*FUNCTION*DataPool*Data SET d3=" + p1.ToString() + "#" + p2.ToString() + "#" +  (p3 + p4 + p5).ToString());
-                    command = "0 RENDERER*FUNCTION*DataPool*Data SET n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString() + ";";
+                    this.sendVizCommand("0 RENDERER*FUNCTION*Data SET d3=" + p1.ToString() + "#" + p2.ToString() + "#" +  (p3 + p4 + p5).ToString());
+                    command = "0 RENDERER*FUNCTIONl*Data SET n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString() + ";";
                     this.sendVizCommand(command);
                     break;
             }
@@ -502,22 +501,22 @@ namespace ElectionResult
                 switch (this.currentBUGScene)
                 {
                     case 10: //bug all
-                        command = "0 RENDERER*FUNCTION*DataPool*Data SET t1=" + this.t1.ToString() + ";t2=" + this.t2.ToString() + ";t3=" + this.t3.ToString() + ";t4=" + this.t4.ToString() + ";t5=" + this.t5.ToString() + ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString() + ";p1=" + this.p1.ToString() + ";p2=" + this.p2.ToString() + ";p3=" + this.p3.ToString() + ";p4=" + this.p4.ToString() + ";p5=" + this.p5.ToString() + ";";
+                        command = "0 RENDERER*FUNCTION*Data SET t1=" + this.t1.ToString() + ";t2=" + this.t2.ToString() + ";t3=" + this.t3.ToString() + ";t4=" + this.t4.ToString() + ";t5=" + this.t5.ToString() + ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString() + ";p1=" + this.p1.ToString() + ";p2=" + this.p2.ToString() + ";p3=" + this.p3.ToString() + ";p4=" + this.p4.ToString() + ";p5=" + this.p5.ToString() + ";";
                         this.sendVizCommand(command);
-                        this.sendVizCommand("0 RENDERER*FUNCTION*DataPool*Data SET d1=" + p1.ToString() + "#" + p2.ToString() + "#" + p3.ToString() + "#" + p4.ToString() + "#" + p5.ToString());
+                        this.sendVizCommand("0 RENDERER*FUNCTION*Data SET d1=" + p1.ToString() + "#" + p2.ToString() + "#" + p3.ToString() + "#" + p4.ToString() + "#" + p5.ToString());
                         break;
                     case 11:
                         //bug 3 candidate
-                        command = "0 RENDERER*FUNCTION*DataPool*Data SET t1=" + this.t1.ToString() + ";t2=" + this.t2.ToString() + ";t3=" + this.t3.ToString() + ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString() + ";p1=" + this.p1.ToString() + ";p2=" + this.p2.ToString() + ";p3=" + this.p3.ToString() + ";";
+                        command = "0 RENDERER*FUNCTION*Data SET t1=" + this.t1.ToString() + ";t2=" + this.t2.ToString() + ";t3=" + this.t3.ToString() + ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString() + ";p1=" + this.p1.ToString() + ";p2=" + this.p2.ToString() + ";p3=" + this.p3.ToString() + ";";
                         this.sendVizCommand(command);
                         //this.sendVizCommand("0 RENDERER*FUNCTION*DataPool*Data SET d2=" + p1.ToString() + "#" + p2.ToString() + "#" + p3.ToString() + "#" + (100-p1-p2-p3).ToString());
-                        this.sendVizCommand("0 RENDERER*FUNCTION*DataPool*Data SET d2=" + p1.ToString() + "#" + p2.ToString() + "#" + p3.ToString()) ;//**now others will not be present
+                        this.sendVizCommand("0 RENDERER*FUNCTION*Data SET d2=" + p1.ToString() + "#" + p2.ToString() + "#" + p3.ToString()) ;//**now others will not be present
                         break;
                     case 17:
                         //bug 2 candidate
-                        command = "0 RENDERER*FUNCTION*DataPool*Data SET t1=" + this.t1.ToString() + ";t2=" + this.t2.ToString() + ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString() + ";p1=" + this.p1.ToString() + ";p2=" + this.p2.ToString() + ";";
+                        command = "0 RENDERER*FUNCTION*Data SET t1=" + this.t1.ToString() + ";t2=" + this.t2.ToString() + ";n1=" + this.n1.ToString() + ";n2=" + this.n2.ToString() + ";p1=" + this.p1.ToString() + ";p2=" + this.p2.ToString() + ";";
                         this.sendVizCommand(command);
-                        this.sendVizCommand("0 RENDERER*FUNCTION*DataPool*Data SET d3=" + p1.ToString() + "#" + p2.ToString() + "#" + (100-p1-p2).ToString());
+                        this.sendVizCommand("0 RENDERER*FUNCTION*Data SET d3=" + p1.ToString() + "#" + p2.ToString() + "#" + (100-p1-p2).ToString());
                         break;
 
                 }
@@ -531,8 +530,8 @@ namespace ElectionResult
         /// <param name="e"></param>
         private void btnSetBackground_Click(object sender, EventArgs e)
         {
-            this.sendVizCommand("0 RENDERER*BACK_LAYER SET_OBJECT " + backScene);
-            this.sendVizCommand("0 RENDERER*BACK_LAYER*STAGE*DIRECTOR*bg START");
+            this.sendVizCommand("0 RENDERER*LAYER SET_OBJECT " + backScene);
+            this.sendVizCommand("0 RENDERER*STAGE*bg START");
         }
 
         /// <summary>
